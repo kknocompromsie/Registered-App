@@ -7,21 +7,16 @@ pipeline {
     }
 
     stages {
-        stage("Cleanup Workspace") {
+        stage("Checkout from SCM") {
             steps {
-                cleanWs()
+                // Using the exact URL from your successful log
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/kknocompromsie/Registered-App'
             }
         }
 
-         stage("Checkout from SCM") {
-    steps {
-        // Change 'kknocompromise' to 'kknocompromsie'
-        git branch: 'main', credentialsId: 'github', url: 'https://github.com/kknocompromsie/Registered-App'
-            }
-        }
-
-        stage("Build Application") { // Fixed: Added missing opening double quote
+        stage("Build Application") {
             steps {
+                sh "ls -ltr" 
                 sh "mvn clean package"
             }
         }
@@ -30,6 +25,12 @@ pipeline {
             steps {
                 sh "mvn test"
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
