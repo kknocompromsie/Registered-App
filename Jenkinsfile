@@ -13,9 +13,10 @@ pipeline {
             }
         }
 
-        stage("Checkout from SCM") {
-            steps { // Fixed: 'steps' must be lowercase
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/kknocompromise/Registered-App'
+         stage("Checkout from SCM") {
+    steps {
+        // Change 'kknocompromise' to 'kknocompromsie'
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/kknocompromsie/Registered-App'
             }
         }
 
